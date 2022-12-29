@@ -3,15 +3,12 @@ import pandas
 import xgboost
 import utils
 
-from pathlib import Path
-
 # Streamlit configs
 streamlit.set_page_config(layout="wide")
 
 # Environment variables
 PREDICTION_MODEL_PATH = "trained_model.json"
 EXAMPLE_TEST_DATA_PATH = "test_data_example.csv"
-TEST_DATA_PATH = "test_data.csv"
 OUTPUT_FILE_NAME = "file.csv"
 
 if __name__ == "__main__":
@@ -19,9 +16,9 @@ if __name__ == "__main__":
     ## Load example and test data
     example_df = pandas.read_csv(EXAMPLE_TEST_DATA_PATH)
     ## Load test data
-    uploaded_file = streamlit.sidebar.file_uploader("**Upload your input CSV file**", type=["csv"])
+    uploaded_file = streamlit.sidebar.file_uploader("**Upload your input CSV file**", type=["csv", "xlsx", "xls"])
     if uploaded_file is not None:
-        input_df = pandas.read_csv(uploaded_file)
+        input_df = pandas.read_excel(uploaded_file)
     else:
         input_df = example_df.copy()
     ## Load prediction model
@@ -34,13 +31,13 @@ if __name__ == "__main__":
         ### Description
         This app converts the measurement values obtained by both spectrometers into the reference values by using the prediction model.
         ### How to use it?
-        Įkelti CSV failą su duotomis dirbinio sudėties reikšmėmis (%): įkelti CSV failą paspaudžiant "Browse file".
+        Įkelti failą (CSV, XLSX, XLS) su duotomis dirbinio sudėties reikšmėmis (%): įkelti failą paspaudžiant "Browse file".
     """)
 
     ## Displays the user input features
     streamlit.write("""
         ### How Input Data Should Look Like?
-        It's the required input format for the Input CSV file. You can provide one or more input rows. See the example below.
+        It's the required input format for the Input file. You can provide one or more input rows. See the example below.
         - 0's and 1's in is_Niton and is_Solid refer to "No" and "Yes", respectively.
     """)
     streamlit.write(example_df)
@@ -49,7 +46,7 @@ if __name__ == "__main__":
     ### Collects user input features into dataframe
     streamlit.subheader("Given User Input Values")
     streamlit.write("""
-        - If CSV file is not provided, input data and predictions are generated using the example dataset.
+        - If the input file is not provided, input data and predictions are generated using the example dataset.
     """)
     streamlit.write(input_df)
 
@@ -63,6 +60,7 @@ if __name__ == "__main__":
     def convert_df(df):
         return df.to_csv(index=False).encode('utf-8')
     csv = convert_df(predictions)
+
     streamlit.download_button(
         "Press to Download Adjusted Values",
         csv,
