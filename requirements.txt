@@ -1,0 +1,6 @@
+streamlit
+watchdog
+pandas
+scikit-learn
+xgboost
+pytest
