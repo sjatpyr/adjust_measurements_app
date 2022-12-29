@@ -3,6 +3,10 @@ import pandas
 import xgboost
 import utils
 
+from pathlib import Path
+
+# pkl_path = Path(__file__).parents[1] / 'pages/liver_model.pkl'
+
 # Streamlit configs
 streamlit.set_page_config(layout="wide")
 
@@ -19,7 +23,7 @@ if __name__ == "__main__":
     ## Load test data
     uploaded_file = streamlit.sidebar.file_uploader("**Upload your input CSV file**", type=["csv"])
     if uploaded_file is not None:
-        input_df = pandas.read_csv(TEST_DATA_PATH)
+        input_df = pandas.read_csv(uploaded_file)
     else:
         input_df = example_df.copy()
     ## Load prediction model
