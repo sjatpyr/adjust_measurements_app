@@ -5,8 +5,6 @@ import utils
 
 from pathlib import Path
 
-# pkl_path = Path(__file__).parents[1] / 'pages/liver_model.pkl'
-
 # Streamlit configs
 streamlit.set_page_config(layout="wide")
 
@@ -36,7 +34,7 @@ if __name__ == "__main__":
         ### Description
         This app converts the measurement values obtained by both spectrometers into the reference values by using the prediction model.
         ### How to use it?
-        Įkelti CSV failą su pavadinimu "test_data.csv" su duotomis dirbinio sudėties reikšmėmis (%): įkelti "test_data.csv" failą paspaudžiant "Browse file".
+        Įkelti CSV failą su duotomis dirbinio sudėties reikšmėmis (%): įkelti CSV failą paspaudžiant "Browse file".
     """)
 
     ## Displays the user input features
@@ -51,7 +49,7 @@ if __name__ == "__main__":
     ### Collects user input features into dataframe
     streamlit.subheader("Given User Input Values")
     streamlit.write("""
-        - If test_data.csv is not provided, input data and predictions are generated using the example dataset.
+        - If CSV file is not provided, input data and predictions are generated using the example dataset.
     """)
     streamlit.write(input_df)
 
