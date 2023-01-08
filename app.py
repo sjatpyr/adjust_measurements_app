@@ -1,5 +1,6 @@
 import streamlit 
 import pandas 
+import numpy
 import xgboost
 import utils
 
@@ -39,13 +40,14 @@ if __name__ == "__main__":
         ### Kaip turėtų atrodyti įvesties duomenys?
         - Žiūrėti pateiktą pavyzdį apačioje. Tai yra reikalaujamas įvesties failo formatas.
         - Galite pateikti vieną ar daugiau įvesties eilučių.
-        - 0 ir 1 eilutėse stulpeliuose "Ar pXRF" and "Ar kietas paviršius" reiškia atitinkamai "Ne" ir "Taip".
+        - **Metodas** stulpelio galimos reikšmės: **pXRF** arba **ED-XRF**.
+        - **Mėginio tipas** stulpelio galimos reikšmės: **Kietas paviršius** arba **Drožlės**.
     """)
     streamlit.write(example_df)
 
     ## Read input data and use model to make predictions
     ### Collects user input features into dataframe
-    streamlit.subheader("Duotos naudotojo įvesties reikšmės")
+    streamlit.subheader("Vartotojo įkeltos reikšmės")
     streamlit.write("""
         - Jeigu įvesties failas nenurodytas, įvesties duomenys ir prognozės yra generuojamos naudojant pavyzdinių duomenų rinkinį.
     """)
@@ -53,8 +55,11 @@ if __name__ == "__main__":
 
     ### Predictions
 
-    predictions = utils.predict(model, input_df)
+    # todo: add labelencoder
+    input_df["Metodas"] = numpy.where(input_df['Metodas'] == "pXRF", 1, 0)
+    input_df["Mėginio tipas"] = numpy.where(input_df['Mėginio tipas'] == "Kietas paviršius", 1, 0)
 
+    predictions = utils.predict(model, input_df)
     streamlit.subheader("Koreguotos reikšmės pritaikius prognostinį modelį")
     streamlit.write(predictions)
 
