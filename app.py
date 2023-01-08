@@ -16,7 +16,7 @@ if __name__ == "__main__":
     ## Load example and test data
     example_df = pandas.read_csv(EXAMPLE_TEST_DATA_PATH)
     ## Load test data
-    uploaded_file = streamlit.sidebar.file_uploader("**Upload your input CSV file**", type=["csv", "xlsx", "xls"])
+    uploaded_file = streamlit.sidebar.file_uploader("**Įkelk čia įvesties duomenis**", type=["csv", "xlsx", "xls"])
     if uploaded_file is not None:
         input_df = pandas.read_excel(uploaded_file)
     else:
@@ -27,32 +27,34 @@ if __name__ == "__main__":
 
     # App
     streamlit.write("""
-        # Jūsu sugalvotas pavadinimas <...>
-        ### Description
-        This app converts the measurement values obtained by both spectrometers into the reference values by using the prediction model.
-        ### How to use it?
+        # RENTGENO FLUORESCENCIJOS SPEKTROMETRIJOS (XRF) DUOMENŲ KOREGAVIMO MOBILIOJI APLIKACIJA 
+        ### Aprašymas
+        Ši aplikacija koreguoja matavimų vertes, gautas tiriant pXRF ir ED-XRF spektrometrais, į etalonines vertes, naudodama sukurtą prognostinis modelį.
+        ### Kaip naudoti
         Įkelti failą (CSV, XLSX, XLS) su duotomis dirbinio sudėties reikšmėmis (%): įkelti failą paspaudžiant "Browse file".
     """)
 
     ## Displays the user input features
     streamlit.write("""
-        ### How Input Data Should Look Like?
-        It's the required input format for the Input file. You can provide one or more input rows. See the example below.
-        - 0's and 1's in is_Niton and is_Solid refer to "No" and "Yes", respectively.
+        ### Kaip turėtų atrodyti įvesties duomenys?
+        Tai reikalaujamas įvesties failo formatas. Galite pateikti vieną ar daugiau įvesties eilučių. Žiūrėti pateiktą pavyzdį apačioje.
+        - 0 ir 1 eilutėse stulpeliuose "Ar pXRF" and "Ar kietas paviršius" reiškia atitinkamai "Ne" ir "Taip".
     """)
     streamlit.write(example_df)
 
     ## Read input data and use model to make predictions
     ### Collects user input features into dataframe
-    streamlit.subheader("Given User Input Values")
+    streamlit.subheader("Duotos naudotojo įvesties reikšmės")
     streamlit.write("""
-        - If the input file is not provided, input data and predictions are generated using the example dataset.
+        - Jeigu įvesties failas nenurodytas, įvesties duomenys ir prognozės yra generuojamos naudojant pavyzdinių duomenų rinkinį.
     """)
     streamlit.write(input_df)
 
     ### Predictions
+
     predictions = utils.predict(model, input_df)
-    streamlit.subheader("Adjusted Input Values")
+
+    streamlit.subheader("Koreguotos reikšmės pritaikius prognostinį modelį")
     streamlit.write(predictions)
 
     ### Allow to download prediction data
@@ -62,7 +64,7 @@ if __name__ == "__main__":
     csv = convert_df(predictions)
 
     streamlit.download_button(
-        "Press to Download Adjusted Values",
+        "Paspausk šį mygtuką, kad atsisiųsti gautas reikšes",
         csv,
         OUTPUT_FILE_NAME,
         "text/csv",
