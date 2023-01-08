@@ -31,7 +31,7 @@ if __name__ == "__main__":
         # RENTGENO FLUORESCENCIJOS SPEKTROMETRIJOS (XRF) DUOMENŲ KOREGAVIMO MOBILIOJI APLIKACIJA 
         ### Aprašymas
         Ši aplikacija koreguoja matavimų vertes, gautas tiriant pXRF ir ED-XRF spektrometrais, į etalonines vertes, naudodama sukurtą prognostinį modelį.
-        ### Kaip naudoti
+        ### Kaip naudoti?
         Įkelti failą (CSV, XLSX, XLS) su duotomis dirbinio sudėties reikšmėmis (%): įkelti failą paspaudžiant "Browse file".
     """)
 
