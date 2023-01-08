@@ -65,7 +65,7 @@ if __name__ == "__main__":
     csv = convert_df(predictions)
 
     streamlit.download_button(
-        "Paspausk šį mygtuką, kad atsisiųsti gautas reikšes",
+        "Paspausk šį mygtuką, kad atsisiųsti gautas reikšmes",
         csv,
         OUTPUT_FILE_NAME,
         "text/csv",
