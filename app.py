@@ -29,7 +29,7 @@ if __name__ == "__main__":
     streamlit.write("""
         # RENTGENO FLUORESCENCIJOS SPEKTROMETRIJOS (XRF) DUOMENŲ KOREGAVIMO MOBILIOJI APLIKACIJA 
         ### Aprašymas
-        Ši aplikacija koreguoja matavimų vertes, gautas tiriant pXRF ir ED-XRF spektrometrais, į etalonines vertes, naudodama sukurtą prognostinis modelį.
+        Ši aplikacija koreguoja matavimų vertes, gautas tiriant pXRF ir ED-XRF spektrometrais, į etalonines vertes, naudodama sukurtą prognostinį modelį.
         ### Kaip naudoti
         Įkelti failą (CSV, XLSX, XLS) su duotomis dirbinio sudėties reikšmėmis (%): įkelti failą paspaudžiant "Browse file".
     """)
@@ -37,7 +37,8 @@ if __name__ == "__main__":
     ## Displays the user input features
     streamlit.write("""
         ### Kaip turėtų atrodyti įvesties duomenys?
-        Tai reikalaujamas įvesties failo formatas. Galite pateikti vieną ar daugiau įvesties eilučių. Žiūrėti pateiktą pavyzdį apačioje.
+        - Žiūrėti pateiktą pavyzdį apačioje. Tai yra reikalaujamas įvesties failo formatas.
+        - Galite pateikti vieną ar daugiau įvesties eilučių.
         - 0 ir 1 eilutėse stulpeliuose "Ar pXRF" and "Ar kietas paviršius" reiškia atitinkamai "Ne" ir "Taip".
     """)
     streamlit.write(example_df)
